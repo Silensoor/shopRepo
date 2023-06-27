@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+<h2>Product List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through products and display them -->
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
+            <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Only show the "Add Product" button for admin users -->
+<div th:if="${isAdmin}">
+    <a href="/products/create">Add Product</a>
+</div>
+</body>
+</html>
