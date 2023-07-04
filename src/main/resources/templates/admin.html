@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" href="/css/products.css">
+    <script src="/css/js/admin.js"></script>
+</head>
+<body>
+
+<div class="body-content">
+    <h2>Category List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through products and display them -->
+        <tr th:each="cat : ${category}">
+            <td th:text="${cat.id}"></td>
+            <td th:text="${cat.name}"></td>
+            <td>
+                <a th:href="@{/category/delete/{id}(id=${cat.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h2>Product List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through products and display them -->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category}"></td>
+            <td>
+                <a th:href="@{/admin/product/delete/{id}(id=${product.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="module">
+        <h1>Изменить категорию продукта</h1>
+        <form class="form" action="/admin/product/change" method="POST">
+            <div class="alert alert-error"></div>
+            <input type="number" placeholder="Id продукта" name="id" required/>
+            <input type="number" placeholder="Id категории" name="categoryId" required/>
+            <input type="submit" value="change" class="btn btn-block btn-primary"/>
+        </form>
+        <div class="module">
+            <h1>Добавить продукт</h1>
+            <form class="form" action="/admin/product/add" method="POST">
+                <div class="alert alert-error"></div>
+                <input type="text" placeholder="Name" name="name" required/>
+                <input type="text" placeholder="Price" name="price" required/>
+                <input type="submit" value="Add" class="btn btn-block btn-primary"/>
+            </form>
+            <h1>Добавить категорию</h1>
+            <form class="form" action="/admin/category/add" method="POST">
+                <div class="alert alert-error"></div>
+                <input type="text" placeholder="Name" name="name" required/>
+                <input type="submit" value="Add" class="btn btn-block btn-primary"/>
+            </form>
+        </div>
+    </div>
+    <a href="/logout">Выход</a>
+    <a href="/products">Продукты</a>
+</div>
+</body>
+
+</html>

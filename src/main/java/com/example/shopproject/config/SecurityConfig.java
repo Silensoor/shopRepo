@@ -29,12 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSumu1aB.woff2",
                         "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2")
                 .permitAll()
-                .antMatchers("/products/**")
+                .antMatchers("/products")
                 .hasAnyRole("USER","ADMIN")
+                .antMatchers("/products/delete/**","/admin/**")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll().and()
                 .logout()//настройка выхода
-                .permitAll();
+                .permitAll().and()
+                .exceptionHandling().accessDeniedPage("/products");
 
 
     }

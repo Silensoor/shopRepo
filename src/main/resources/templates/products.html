@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Product List</title>
+    <link rel="stylesheet" href="/css/products.css">
 </head>
 <body>
-<h2>Product List</h2>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop through products and display them -->
-    <tr th:each="product : ${products}">
-        <td th:text="${product.id}"></td>
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
-        <td>
-            <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
-            <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
 <!-- Only show the "Add Product" button for admin users -->
-<div th:if="${isAdmin}">
-    <a href="/products/create">Add Product</a>
+
+<div class="body-content">
+    <h2>Product List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through products and display them -->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="module">
+        <h1>Добавить продукт</h1>
+        <form class="form" action="/products/create" method="POST">
+            <div class="alert alert-error"></div>
+            <input type="text" placeholder="Name" name="name" required/>
+            <input type="text" placeholder="Price" name="price" required/>
+            <input type="submit" value="Add" class="btn btn-block btn-primary"/>
+        </form>
+    </div>
+    <a href="/logout">Выход</a>
+    <a href="/admin">Админка</a>
 </div>
 </body>
 </html>

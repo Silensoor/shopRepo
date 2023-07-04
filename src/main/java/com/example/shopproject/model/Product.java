@@ -1,6 +1,8 @@
 package com.example.shopproject.model;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -13,9 +15,13 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
-    private double price;
+    private Double price;
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
+
 
 
 }
